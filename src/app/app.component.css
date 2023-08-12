@@ -1,0 +1,3 @@
+.gifs-home{
+  width: calc( 100vw - min( 270px, 33vw) );
+}

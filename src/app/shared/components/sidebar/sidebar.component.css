@@ -1,0 +1,7 @@
+
+
+.sidebar{
+  height: 100vh;
+  width: min(250px, 30vw);
+  /* min-width: 200px; */
+}
