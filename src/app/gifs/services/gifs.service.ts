@@ -13,7 +13,20 @@ export class GifsService{
   private _tagsHistory: string[] = [];
   private serviceUrl:     string = 'https://api.giphy.com/v1/gifs/search';
 
-  constructor( private http:HttpClient ){}
+  constructor( private http:HttpClient ){
+    this.loadLocalStorage();
+    this.searchTag(this._tagsHistory[0]);
+  }
+
+  private saveOnLocalStorage():void {
+    localStorage.setItem('gifs', JSON.stringify( this._tagsHistory ));
+  }
+
+  private loadLocalStorage():void {
+    if( !localStorage.getItem('gifs') ) return;
+
+    this._tagsHistory = JSON.parse( localStorage.getItem('gifs')! );
+  }
 
   organizeHistory( word:string ) {
     const wordDuplicate = this._tagsHistory.find( tag => {
@@ -36,6 +49,7 @@ export class GifsService{
     if( tagLowerCase.length === 0 ) return;
     this.organizeHistory(tagLowerCase);
     this._tagsHistory.unshift(tagLowerCase);
+    this.saveOnLocalStorage();
 
     const params = new HttpParams()
     .set('api_key',this.API_KEY )
