@@ -15,7 +15,6 @@ export class GifsService{
 
   constructor( private http:HttpClient ){
     this.loadLocalStorage();
-    this.searchTag(this._tagsHistory[0]);
   }
 
   private saveOnLocalStorage():void {
@@ -26,6 +25,7 @@ export class GifsService{
     if( !localStorage.getItem('gifs') ) return;
 
     this._tagsHistory = JSON.parse( localStorage.getItem('gifs')! );
+    this.searchTag(this._tagsHistory[0]);
   }
 
   organizeHistory( word:string ) {
